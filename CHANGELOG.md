@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.1] - 2026-01-19
+
+### Documentation
+*   **Exception Policy Added**: Detailed the "Fallback to Soft Filter" policy in `RAG_ROBUSTNESS.md` to handle zero-result scenarios (GitHub Issue Checklist Compliance).
+
+---
+
 ## [0.6.0] - 2026-01-19
 
 ### 🚀 Major Feature: RAG Optimization & Robustness
