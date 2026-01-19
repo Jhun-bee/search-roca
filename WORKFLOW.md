@@ -25,6 +25,29 @@ graph TB
 
 ---
 
+## 핵심 검색 아키텍처 (RAG Pipeline) v0.6.0
+
+```mermaid
+graph LR
+    subgraph "1. Meaning Extraction (Input)"
+        U[User Query<br/>'안 미끄러지는 욕실 매트'] -->|Agent| K[Keyword: '욕실 매트'<br/>Feature: '미끄럼방지']
+    end
+
+    subgraph "2. Vector Search (Retrieval)"
+        K -->|Embedding| V[Vector Search]
+        V -->|Top-K=30| C1[후보군 30개]
+    end
+
+    subgraph "3. Reranking (Refinement)"
+        C1 -->|Intent Rule| R[Gemini 2.0<br/>Traffic Control]
+        R -->|Re-scoring| C2[최종 순위]
+    end
+
+    C2 -->|Top-1| RES[최적 상품 반환]
+```
+
+---
+
 ## 사용자 여정
 
 ```mermaid

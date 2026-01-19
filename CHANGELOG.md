@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.0] - 2026-01-19
+
+### 🚀 Major Feature: RAG Optimization & Robustness
+*   **Verified Architecture**: Meaning Extraction -> Vector Search (K=30) -> Intent Rules -> LLM Reranking.
+*   **Performance Achievement**:
+    *   **Retrieval Recall**: 92.0% (vs Baseline 57.8%)
+    *   **Intent Accuracy**: 96.0% (with Rule-based Prompt)
+    *   **Validated**: 200 Products / 25 Keyword Test Cases.
+
+### Added
+- **Reports** (in `/docs`)
+  - `RAG_ROBUSTNESS.md`: Full verification report of the optimization.
+  - `RAG_BASELINE.md`: Failure analysis of raw sentence input.
+- **PoC Scripts** (in `poc/`)
+  - `RAG_System_experiment_keyword.py`: The winning optimization script (K=30).
+  - `RAG_System_experiment_baseline.py`: The failing baseline script (for reference).
+  - `prompts/intent_rules_prompt.txt`: The finalized Intent Classifer prompt.
+
+### Changed
+- **Search Logic Update**:
+  - Increased `Top-K` from 10 to **30**.
+  - Enforced "Keyword-Only" input strategy (upstream dependency).
+  - Added Rule-based "Traffic Control" for ambiguous keywords (e.g., Latex Gloves).
+
+---
+
 ## [0.0.0] - 2026-01-15
 
 ### Added

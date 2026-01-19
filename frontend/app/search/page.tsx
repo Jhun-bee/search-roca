@@ -63,26 +63,53 @@ export default function SearchPage() {
 
     // Voice recognition handler
     const handleVoiceInput = () => {
-        if (!('webkitSpeechRecognition' in window)) {
-            alert("Voice recognition not supported. Use Chrome/Edge.");
+        // Check for SpeechRecognition support
+        const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+
+        if (!SpeechRecognition) {
+            alert("❌ 이 브라우저는 음성인식을 지원하지 않습니다.\n\nChrome 또는 Edge를 사용해주세요.");
             return;
         }
-        const SpeechRecognition = (window as any).webkitSpeechRecognition;
+
         const recognition = new SpeechRecognition();
         recognition.lang = 'ko-KR';
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
-        recognition.start();
+        recognition.continuous = false;
 
-        recognition.onstart = () => setQuery("🎤 Listening...");
+        recognition.onstart = () => {
+            console.log("Voice recognition started");
+            setQuery("🎤 말씀하세요...");
+        };
+
         recognition.onresult = (event: any) => {
             const transcript = event.results[0][0].transcript;
+            console.log("Recognized:", transcript);
             setQuery(transcript);
         };
+
         recognition.onerror = (event: any) => {
-            console.error(event.error);
-            setQuery(event.error === 'not-allowed' ? "Mic denied" : "Try again");
+            console.error("Speech error:", event.error);
+            if (event.error === 'not-allowed') {
+                setQuery("❌ 마이크 권한 거부됨");
+                alert("마이크 권한을 허용해주세요.\n\n브라우저 주소창 왼쪽의 🔒 아이콘 클릭 → 마이크 허용");
+            } else if (event.error === 'no-speech') {
+                setQuery("🔇 음성이 감지되지 않았습니다");
+            } else {
+                setQuery(`❌ 오류: ${event.error}`);
+            }
         };
+
+        recognition.onend = () => {
+            console.log("Voice recognition ended");
+        };
+
+        try {
+            recognition.start();
+        } catch (e) {
+            console.error("Failed to start recognition:", e);
+            setQuery("❌ 음성인식 시작 실패");
+        }
     };
 
     return (
