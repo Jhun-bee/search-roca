@@ -52,6 +52,7 @@
 2.  **Search Layer**:
     *   **Vector Search**: **`Top-K = 30`** 확정. (200개 데이터셋 기준 최적값)
     *   **Category Filter**: Intent 분류 결과를 필터링보다는 **Reranking의 가중치**나 **Scope 축소** 용도로 사용 권장.
+        *   **Exception Policy (예외 처리)**: 만약 Hard Filter 적용 시 검색 결과가 0건이면, 즉시 필터를 해제하고 전체 검색(Soft Filter)으로 전환하는 **Fallback Logic** 필수.
 3.  **Rerank Layer**: Gemini 2.0 Flash 사용 (K=30 후보군 처리에 적합)
 
 ### **3.2 배포 설정 (Production Config)**
