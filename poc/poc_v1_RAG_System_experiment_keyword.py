@@ -42,34 +42,20 @@ def get_embedding(text):
 def cosine_similarity(v1, v2):
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
+def load_prompt(filename):
+    path = os.path.join(os.path.dirname(__file__), "prompts", filename)
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
 def classify_intent(query, categories):
-    """[Issue 3] Intent Classifier (Enhanced with Guidelines)"""
+    """[Issue 3] Intent Classifier (Loaded from prompts/intent_rules_prompt.txt)"""
     if not api_key: return "Error"
     
     cat_list_str = ", ".join(categories)
-    prompt = f"""
-    You are an Intent Classifier.
-    User Query: "{query}"
-    Categories: {cat_list_str}
-    
-    [Guidelines & Rules]
-    1. **Gloves**:
-       - '고무장갑', '설거지', '주방' -> [주방]
-       - '골프', '헬스', '운동' -> [운동]
-       - '털장갑', '방한', '스마트폰' -> [의류]
-    2. **Mats**:
-       - '규조토', '욕실', '화장실' -> [욕실]
-       - '요가', '필라테스', '운동' -> [운동]
-       - '코일', '차량' -> [자동차]
-    3. **Brushes (솔)**:
-       - '변기', '타일', '청소' -> [청소]
-       - '헤어', '머리', '빗' -> [미용]
-    
-    Instruction:
-    1. Select the single most relevant category based on the Rules.
-    2. Output ONLY the category name. No explanations.
-    """
     try:
+        prompt_template = load_prompt("intent_rules_prompt.txt")
+        prompt = prompt_template.replace("{query}", query).replace("{cat_list_str}", cat_list_str)
+        
         model = genai.GenerativeModel("gemini-2.0-flash")
         response = model.generate_content(prompt)
         pred = response.text.strip()
@@ -77,7 +63,8 @@ def classify_intent(query, categories):
         for c in categories:
             if c in pred: return c
         return pred
-    except:
+    except Exception as e:
+        print(f"Intent Error: {e}")
         return "Error"
 
 def vector_search(query, products, top_k=10):
@@ -99,22 +86,16 @@ def vector_search(query, products, top_k=10):
     return scored[:top_k]
 
 def rerank_results(query, candidates):
-    """[Issue 2] LLM Reranker"""
+    """[Issue 2] LLM Reranker (Loaded from prompts/rerank_prompt.txt)"""
     if not api_key: return []
     
     cand_text = "\n".join([f"ID {c['id']}: {c['name']} ({c['desc']})" for c in candidates])
     
-    prompt = f"""
-    Search Query: "{query}"
-    Candidates:
-    {cand_text}
-    
-    Task:
-    1. Rank candidates by relevance to the query.
-    2. Crucially, filter out "Homonyms" (e.g., 'Yoga Mat' for 'Bathroom Mat' query).
-    3. Return JSON list: [{{"id": 123, "rank": 1}}, ...]
-    """
     try:
+        prompt_template = load_prompt("rerank_prompt.txt")
+        # Use simple replace to avoid f-string complexity with json braces in txt
+        prompt = prompt_template.replace("{query}", query).replace("{candidate_text}", cand_text)
+        
         model = genai.GenerativeModel("gemini-2.0-flash")
         response = model.generate_content(prompt)
         import re

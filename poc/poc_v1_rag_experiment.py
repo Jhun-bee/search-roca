@@ -392,8 +392,8 @@ if __name__ == "__main__":
     print(f"✅ {len(products)}개 상품 로드 완료.")
     
     """
-    Test1:
-    수정전
+    Test1: 수정전, Gemini API(text-embedding-004) 사용하여 임베딩.
+    Test2: 수정후, Local Model(MiniLM) 사용하여 임베딩.
     """
     # run_grid_search(products, mode="gemini")
     
