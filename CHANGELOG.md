@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.5] - 2026-01-23
+### Added
+- **Report Upgrade**: `poc/document/poc_v3_AG_Module_Validation_Report.md` 추가 (구조 개선: 목적/목표/계획/결과/결론)
+- **Data Restoration**: `poc_v2` 데이터셋(Golden Test Case 30건, Mock DB)을 v0.4.0 원본으로 복구하여 보존
+
+### Changed
+- `poc/document/poc_v2_AG_Module_Validation_Report.md`를 원본 상태로 복구 (v3와 분리)
+
 ## [v0.6.4] - 2026-01-23
 ### Added
 - **Latency Monitoring**: LLM 호출 시간(Latency) 측정 로그 기능 추가 (Average 1.7s)
