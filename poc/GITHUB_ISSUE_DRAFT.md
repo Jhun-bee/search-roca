@@ -52,6 +52,10 @@
    - 정확도(LLM)와 속도(Cross-Encoder) 사이의 균형점 확인
    - (1.5초 더 기다릴 가치가 있는가? 에 대한 데이터 기반 판단)
 
+## 5. 데이터 품질 개선 (Data Refinement)
+- **Mock DB**: '기타/미분류' 카테고리 200건 전수 재분류 완료 (Clean Data 달성)
+- **Test Case**: Hard Case 비율 확대 및 False Positive 검증 케이스 추가
+
 ## 최종 제안 파이프라인
 `Query Processor (Gemini)` -> `Hybrid Search (Top-20)` -> `AG Reranker (Gemini)`
 

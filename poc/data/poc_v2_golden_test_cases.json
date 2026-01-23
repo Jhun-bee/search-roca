@@ -489,5 +489,216 @@
     "ground_truth_ids_hint": [
       260
     ]
+  },
+  {
+    "query": "락스 냄새 안 나는 화장실 곰팡이 제거제",
+    "scenario_type": "Negative Constraints",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "곰팡이",
+        "제거",
+        "화장실"
+      ],
+      "category": "청소용품",
+      "filters": [
+        "-락스",
+        "-냄새"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      171,
+      151
+    ]
+  },
+  {
+    "query": "자취생 필수템 청소도구",
+    "scenario_type": "Implicit Needs",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "청소도구",
+        "자취생"
+      ],
+      "category": "청소도구",
+      "filters": [
+        "가성비",
+        "다용도"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      19,
+      547
+    ]
+  },
+  {
+    "query": "손이 안 트는 주방세제",
+    "scenario_type": "Implicit Needs",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "주방세제"
+      ],
+      "category": "주방잡화",
+      "filters": [
+        "저자극",
+        "순한"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      382,
+      407
+    ]
+  },
+  {
+    "query": "아기 피부에 안전한 섬유유연제",
+    "scenario_type": "Implicit Needs",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "섬유유연제",
+        "아기"
+      ],
+      "category": "세탁용품",
+      "filters": [
+        "저자극",
+        "안전"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      78
+    ]
+  },
+  {
+    "query": "강아지한테 해로운 성분 없는 간식",
+    "scenario_type": "Negative Constraints",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "강아지",
+        "간식"
+      ],
+      "category": "반려동물공통",
+      "filters": [
+        "-유해성분",
+        "안전"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      21,
+      37
+    ]
+  },
+  {
+    "query": "냄새 안 나는 쓰레기 봉투",
+    "scenario_type": "Negative Constraints",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "쓰레기봉투"
+      ],
+      "category": "미분류",
+      "filters": [
+        "-냄새",
+        "탈취"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      1,
+      557
+    ]
+  },
+  {
+    "query": "플라스틱 아닌 천연 소재 도시락통",
+    "scenario_type": "Negative Constraints",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "도시락통"
+      ],
+      "category": "밀폐용기",
+      "filters": [
+        "-플라스틱",
+        "천연소재"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      127
+    ]
+  },
+  {
+    "query": "배터리 오래가는 충전식 건전지",
+    "scenario_type": "Complex Query",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "건전지",
+        "충전식"
+      ],
+      "category": "건전지",
+      "filters": [
+        "오래가는",
+        "충전"
+      ]
+    },
+    "ground_truth_ids_hint": [
+      10,
+      12,
+      20
+    ]
+  },
+  {
+    "query": "다이소에서 노트북 파나요?",
+    "scenario_type": "False Positive",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "노트북"
+      ],
+      "category": "미분류",
+      "filters": []
+    },
+    "ground_truth_ids_hint": []
+  },
+  {
+    "query": "명품 가방 있어요?",
+    "scenario_type": "False Positive",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "명품",
+        "가방"
+      ],
+      "category": "미분류",
+      "filters": []
+    },
+    "ground_truth_ids_hint": []
+  },
+  {
+    "query": "와인 셀러 추천해주세요",
+    "scenario_type": "False Positive",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "와인 셀러"
+      ],
+      "category": "미분류",
+      "filters": []
+    },
+    "ground_truth_ids_hint": []
+  },
+  {
+    "query": "에어컨 설치해주세요",
+    "scenario_type": "False Positive",
+    "difficulty": "Hard",
+    "expected_intent": {
+      "keywords": [
+        "에어컨",
+        "설치"
+      ],
+      "category": "서비스",
+      "filters": []
+    },
+    "ground_truth_ids_hint": []
   }
 ]

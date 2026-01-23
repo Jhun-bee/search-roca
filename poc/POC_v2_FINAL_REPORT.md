@@ -30,12 +30,16 @@
     - `Searchable Description`: 검색 엔진 인덱싱용 요약문
     - `Location`: 카테고리 기반 가상 위치 정보 (예: "2층 욕실용품 A열")
 - **Golden Dataset**: 검색 난이도가 높은 30가지 케이스 정의 (부정문, 복합 의도, 추상적 형용사 등)
+- **Mock Data Quality (데이터 품질)**
+  - 기존: 다이소 상품 데이터 크롤링 기반이나, 카테고리 미분류(기타) 항목이 33% 존재
+  - **개선**: LLM 기반 자동 분류 + 수동 검수를 통해 **미분류 항목 0건 달성 (100% 분류 완료)**
+  - 의의: 검색 필터링 및 카테고리 매칭 정확도 대폭 향상
 
 ---
 
-## 4. 실험 결과 (Results)
+## 3. 핵심 검증 결과 (Validation Results)
 
-### 4.1. Step 2: Hybrid Retrieval 성능 (Top-K Recall)
+### 3.1. Step 2: Hybrid Retrieval 성능 (Top-K Recall)
 **[결과 요약]**: Hybrid 검색이 모든 Top-K 구간에서 가장 우수한 성능을 보였다.
 
 | Method | Recall@5 | Recall@10 | Recall@20 | 비고 |

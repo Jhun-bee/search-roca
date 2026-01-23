@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.6.3] - 2026-01-23
+### Added
+- **Latency Monitoring**: LLM 호출 시간(Latency) 측정 로그 기능 추가 (Average 1.7s)
+- **Data Refinement**: Mock DB 내 '기타/미분류' 상품 200건 전량 재분류 (LLM Automated + Manual Fix)
+
+### Improved
+- **Test Coverage**: Golden Test Cases 42건으로 확장 (Hard/False Positive 케이스 집중 보강)
+- **Documentation**: Test Case 분석 리포트 전면 리팩토링 및 검증 보고서 근거 보강
+
+### Fixed
+- Mock DB Category 필드 누락 문제 해결
+
 ## [v0.6.2] - 2026-01-23
 ### Added
 - **PoC 검증 체계 종합 검토**: 5가지 관점에서 전체 PoC 분석

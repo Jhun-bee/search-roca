@@ -82,11 +82,18 @@ def rerank_llm(query, candidates, top_k=5, user_intent=None):
     """
     
     try:
+        start_time = time.time()
         response = model.generate_content(prompt)
+        end_time = time.time()
+        latency = end_time - start_time
+        
         text = response.text.strip()
         if text.startswith("```json"): text = text[7:]
         if text.endswith("```"): text = text[:-3]
         result = json.loads(text)
+        
+        # Add latency to result meta
+        result['latency'] = latency
         
         # Reconstruct detailed list
         ranked_ids = result.get('ranked_ids', [])
@@ -153,7 +160,7 @@ def run_experiment():
             if real_loc in guide_text:
                 location_accuracy += 1
                 
-        print(f"Case {total}: Q='{query}' | CE={'✅' if res_ce and res_ce[0]['id'] in ground_truth else '❌'} | LLM={'✅' if res_llm and res_llm[0]['id'] in ground_truth else '❌'}")
+        print(f"Case {total}: Q='{query}' | CE={'✅' if res_ce and res_ce[0]['id'] in ground_truth else '❌'} | LLM={'✅' if res_llm and res_llm[0]['id'] in ground_truth else '❌'} | 🕒 {meta.get('latency', 0):.2f}s")
         if meta and 'reason' in meta:
             print(f"      💡 Reason: {meta['reason']}")
         
