@@ -154,6 +154,8 @@ def run_experiment():
                 location_accuracy += 1
                 
         print(f"Case {total}: Q='{query}' | CE={'✅' if res_ce and res_ce[0]['id'] in ground_truth else '❌'} | LLM={'✅' if res_llm and res_llm[0]['id'] in ground_truth else '❌'}")
+        if meta and 'reason' in meta:
+            print(f"      💡 Reason: {meta['reason']}")
         
     print("\n📊 Final Results")
     print(f"Total Evaluated: {total}")
