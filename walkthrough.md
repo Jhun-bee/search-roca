@@ -37,7 +37,7 @@ Validates Top-1 Precision and Location Guidance logic.
 python poc/poc_v2_step3_ag_reranker.py
 ```
 
-### 4. Data Quality Upgrades (v0.6.3) 🆕
+### 4. Data Quality Upgrades (v0.6.4) 🆕
 - **Uncategorized Items Fixed**: 200 items (33% of DB) re-classified from "기타".
 - **Result**: **0 Uncategorized Items**. Cleaner data for accurate filtering.
 

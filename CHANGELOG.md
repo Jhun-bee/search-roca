@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.6.3] - 2026-01-23
+## [v0.6.4] - 2026-01-23
 ### Added
 - **Latency Monitoring**: LLM 호출 시간(Latency) 측정 로그 기능 추가 (Average 1.7s)
 - **Data Refinement**: Mock DB 내 '기타/미분류' 상품 200건 전량 재분류 (LLM Automated + Manual Fix)

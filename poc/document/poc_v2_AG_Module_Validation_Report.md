@@ -199,41 +199,47 @@
 
 ---
 
-### 5.2. 한국어 최적화 Re-ranking 모델 비교 필요성 ⏸️
+### 5.2. 리랭킹 모델 비교 (Re-ranking Model Comparison)
 
-#### 5.2.1. 현재 사용 모델
-| 역할 | 모델 | 한국어 지원 |
-|:---|:---|:---|
-| **Cross-Encoder** | `cross-encoder/ms-marco-MiniLM-L-6-v2` | ⚠️ 제한적 (영어 학습) |
-| **LLM Reranker** | `Gemini 2.0 Flash` | ✅ 우수 |
+#### 5.2.1. 지표 설명
+- **Success (성공)**: 정답을 Top-1으로 맞춘 케이스 수 / 전체 케이스 수
+- **Top-1 Acc (정확도)**: 리랭킹 결과 1위가 정답인 비율 (높을수록 좋음)
+- **MRR (Mean Reciprocal Rank)**: 첫 번째 정답이 몇 번째에 있는 지의 역수 평균 (1.0이 최고, 낮을수록 정답이 뒤에 위치)
+- **Avg Time (평균 시간)**: 한 번의 리랭킹에 걸리는 평균 시간 (낮을수록 빠름)
 
-#### 5.2.2. 대안 모델 후보군
-| 모델 | 한국어 지원 | 장점 | 단점 |
-|:---|:---|:---|:---|
-| **BAAI/bge-reranker-v2-m3** | ✅ 100+ 언어 | 경량, 빠른 추론 | 추론 능력 없음 |
-| **Cohere Rerank v4** | ✅ 다국어 | 32K 컨텍스트, 고성능 | 유료 API |
-| **LLM (Gemini/GPT)** | ✅ 우수 | 추론 + 생성 능력 | 비용, Latency |
+#### 5.2.2. 모델별 성능 비교
 
-#### 5.2.3. 추가 비교 불필요 판단 근거
-> [!NOTE]
-> **결론: 추가 모델 비교는 현재 시점에서 불필요합니다.**
+| Model | Success | Top-1 Acc | MRR | Avg Time | 비고 |
+|:---|:---|:---|:---|:---|:---|
+| Cross-Encoder (ms-marco-MiniLM) | 10/29 | 34.5% | 0.498 | 61.2ms | 속도 빠름, 복합 추론 실패 |
+| BGE-Reranker-v2-m3 | 23/29 | 79.3% | 0.856 | 665.8ms | 다국어 지원, 경량 모델 |
+| Qwen3-Reranker-0.6B | 4/29 | 13.8% | 0.295 | 1824.9ms | 알리바바, 4B/8B GPU 필요 |
+| Naver-Provence-Reranker | 23/29 | 79.3% | 0.828 | 3753.8ms | (舊) 상용화 시 협의 필요 |
+| LLM (GPT-4o-mini) | 26/29 | 89.7% | 0.897 | 2759.6ms | 추론 능력 우수 |
+| **LLM (Gemini 2.0 Flash)** | **27/29** | **93.1%** | **~0.93** | **~1700ms** | **현재 사용 모델, 최고 정확도** |
 
-1.  **현재 LLM Reranker가 이미 93.1% 정확도 달성**
-    - Cross-Encoder의 낮은 성능(34.5%)은 **모델 자체의 한계가 아닌, "추론 능력"의 구조적 부재**
-    - BGE-reranker-v2-m3 등 다국어 Cross-Encoder도 동일한 한계 예상
+> **최고 정확도**: LLM (Gemini 2.0 Flash) - 93.1%
+> **가장 빠른 모델**: Cross-Encoder (ms-marco-MiniLM) - 61.2ms
 
-2.  **PoC의 핵심 가치가 "추론 능력"에 있음**
-    - 현재 Golden Test Cases는 "락스 제외", "자취생 꿀템" 등 **추론이 필요한 난이도 상 케이스**
-    - Cross-Encoder 계열은 본질적으로 "유사도 점수"만 출력 → **논리적 판단 불가**
+#### 5.2.3. 분석 결과
 
-3.  **추가 비교 시 예상 결과**
-    - `BGE-reranker-v2-m3` 예상 성능: ~40-50% (Cross-Encoder 대비 소폭 개선)
-    - `LLM Reranker` 현재 성능: **93.1%** (압도적 우위 유지)
+1. **Cross-Encoder 계열 (ms-marco, BGE, Qwen, Naver)**
+   - 속도는 빠르지만, **"부정 조건"이나 "암시적 의도"를 처리하는 추론 능력 부재**
+   - BGE와 Naver 모델이 79.3%로 선방했으나, LLM 대비 14%p 이상 차이
+
+2. **LLM 계열 (GPT-4o-mini, Gemini 2.0 Flash)**
+   - **추론 능력(Chain-of-Thought)으로 복합 조건 처리 가능**
+   - Gemini 2.0 Flash가 GPT-4o-mini 대비 **+3.4%p 높은 정확도** 및 **~1000ms 빠른 응답**
+
+3. **현재 선택: Gemini 2.0 Flash**
+   - **정확도**: 93.1% (전체 모델 중 최고)
+   - **속도**: ~1700ms (LLM 중 가장 빠름, UX 허용 범위 내)
+   - **비용**: GPT-4o-mini 대비 경쟁력 있음
 
 > [!TIP]
 > **향후 프로덕션 고려사항**: 비용 최적화를 위한 "2단계 Re-ranking" 아키텍처 검토 가능
 > - 1차: BGE-reranker로 Top-20 → Top-5 축소 (비용 절감)
-> - 2차: LLM으로 Top-5 → Top-1 선정 (정확도 확보)
+> - 2차: LLM(Gemini)으로 Top-5 → Top-1 선정 (정확도 확보)
 
 ---
 
