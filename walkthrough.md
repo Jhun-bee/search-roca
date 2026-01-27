@@ -1,5 +1,24 @@
 # Search ROCA PoC Walkthrough
 
+## PoC v5: Advanced Reasoning (Current)
+
+This PoC focuses on improving search accuracy using Chain-of-Thought (CoT) prompting and advanced reasoning to handle complex user queries.
+
+### 1. Run Experiments
+**Phase 1: Reasoning Evaluation**
+Generate reasoning traces and search results:
+```bash
+python poc/poc_v5_experiment_phase_1.py
+```
+
+**Phase 1 Evaluation**
+Evaluate the results against golden test cases:
+```bash
+python poc/poc_v5_experiment_phase_1_eval.py
+```
+
+---
+
 ## PoC v2: AG Reranker Pipeline
 
 This Proof of Concept validates the **Query Processor -> Hybrid Search -> AG Reranker** pipeline.

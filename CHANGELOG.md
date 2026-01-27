@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.7.0] - 2026-01-27
+### Added
+- **PoC v5**: Advanced reasoning experiments with Chain-of-Thought (CoT).
+- **New Scripts**:
+  - `poc/poc_v5_experiment_phase_1.py`: Phase 1 experiment script (Reasoning).
+  - `poc/poc_v5_experiment_phase_1_eval.py`: Evaluation script for Phase 1.
+- **Documentation**:
+  - `poc/document/poc_v5_experiment_results_phase_1-2.md`: Detailed results of Phase 1 & 2.
+  - `poc/document/poc_v5_goal_phase_1.md`: Goals for Phase 1.
+  - `poc/document/poc_v4_goal_phase_2.md`: Goals for Phase 2 (v4 referenced).
+
 ## [v0.6.5] - 2026-01-23
 ### Added
 - **Report Upgrade**: `poc/document/poc_v3_AG_Module_Validation_Report.md` 추가 (구조 개선: 목적/목표/계획/결과/결론)
