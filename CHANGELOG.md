@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.8.0] - 2026-01-29
+### Added
+- **PoC v6 Map & AR Upgrade**:
+  - **Map Debugger**: Created `poc_v6_map_debug.html` to visualize all shelf locations and entrances for B1/B2 floors.
+  - **Multi-Entrance Support**: Added logic to handle multiple entrances (Main/Sub) on B1 floor. Kiosk now supports selecting the starting location, which is passed to the mobile AR view.
+  - **Product Addition**: Added 'Stainless Sieve (Chae-ban)' to Mock Product DB and search logic (`KI01` - Kitchen).
+  - **AR Navigation Fixes**: 
+    - Implemented dynamic Ngrok URL configuration in Kiosk.
+    - Improved AR arrow direction logic to calculate relative bearing from the selected entrance (Start Location).
+
+### Improved
+- **Map Accuracy**: Refined `poc_v6_map_data.js` coordinates for approximately 20 shelf locations based on visual feedback (annotated images).
+- **Mobile Access**: Added cache-busting to map data scripts to ensure mobile devices load the latest coordinates immediately.
+
 ## [v0.7.0] - 2026-01-27
 ### Added
 - **PoC v5**: Advanced reasoning experiments with Chain-of-Thought (CoT).
