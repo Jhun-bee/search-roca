@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.8.1] - 2026-02-05
+### Added
+- **Performance Verification**:
+  - **Latency Benchmark**: Added `poc/benchmark_latency.py` to measure end-to-end system latency (Gemini 2.0 Flash + QR Gen).
+  - **Reports**: Added `poc/document/poc_v6_latency_benchmark_report.md` confirming average 1.13s system latency.
+- **Utils**: Added `poc/fix_encoding.py` for file encoding corrections.
+
+### Changed
+- **Data**: Updated `data/poc_v6_mock_product_db.json`.
+
 ## [v0.8.0] - 2026-01-29
 ### Added
 - **PoC v6 Map & AR Upgrade**:
